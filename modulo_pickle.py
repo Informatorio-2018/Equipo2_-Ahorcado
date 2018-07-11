@@ -39,10 +39,29 @@ def pasa_dic():
 	palabras["PEINE"]="Tiene dientes pero no come nunca."
 	palabras["ALFILER"]="Mi nombre empieza con A, de las damas muy querido, si me prende voy seguro, y si me sueltan, perdido."
 	palabras["MONEDA"]="Tiene cara no tiene cuerpo."
+	palabras["SANDIA"]="Tiene saco verde, usa chaleco colorado, además botones negros."
+	palabras["ESTRELLAS"]="Un platito de avellanas, de día se recojen y de noche se desparrama."
+	palabras["ACEITE"]="En verdes ramas nací, en molino me estrujaron, en pozo me metí, y del pozo me sacaron a la cocina a freír."
+	palabras["KARATE"]="Tengo llaves pero no cerradura. El blanco y el negro pasan por mi cintura."
+	palabras["FELPUDO"]="En la puerta está quietito pero no entra ni un poquito."
+	palabras["FAROLA"]="Soy alta, mi cabeza brillante y siempre guío a los caminantes."
+	palabras["BACALAO"]="Una vaca de lado, que resultó pescado."
+	palabras["PIÑA"]="Tiene ojos y no ve, posee corona y no es rey, tiene escamas sin ser pez."
+	palabras["CABALLO"]="Es un animal muy elegante, muy veloz y poco fiero; y cuando quiero calzarme voy a casa del herrero."
+	palabras["ABEJA"]="De celda en celda voy pero presa no estoy."
+	palabras["HORMIGA"]="Cargadas van, cargadas vienen y en el camino no se detienen."
+	palabras["CARACOL"]="Un solo portero, un solo inquilino, tu casa redonda la llevas contigo."
+	palabras["OVEJA"]="Puñadito de algodón que brinca sin ton ni son."
+	palabras["LAGARTIJA"]="Porque tengo sangre fría aparezco en primavera en piedras encaramada siempre al sol que más calienta."
+	palabras["HIPOPÓTAMO"]="Tengo hipo al decir mi nombre."
+	palabras["SASTRE"]="Con destreza y sin desatre hace las mangas al traje."
+	palabras["CARTERO"]="Por las calles viene y va, reparte noticias, ya está por acá."
+	palabras["PINTOR"]="Brocha y pincel va siempre con él."
+	palabras["TRIGO"]="Verde me crié, rubio me cortaron, rojo me molieron, blanco me amasaron."
+	palabras["PLATANO"]="Oro parece, plata no es. Abre las cortinas y verás lo que es."
 	
 
 
-	
 	pickle_file = open('palabras.pickle', 'wb')
 	dump(palabras, pickle_file)
 
