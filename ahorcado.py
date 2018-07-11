@@ -1,12 +1,12 @@
-from pickle import * 
-from modulo_pickle import *
+
 import random
 
 
 class Ahorcado():
 
 	def lista_palabra(self):
-		diccionario=pasa_dic()
+		import modulo_pickle
+		diccionario=modulo_pickle.pasa_dic()
 		lista=list(diccionario.keys())
 		return lista
 
