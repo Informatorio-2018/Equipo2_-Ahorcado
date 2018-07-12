@@ -59,6 +59,23 @@ def pasa_dic():
 	palabras["PINTOR"]="Brocha y pincel va siempre con él."
 	palabras["TRIGO"]="Verde me crié, rubio me cortaron, rojo me molieron, blanco me amasaron."
 	palabras["PLATANO"]="Oro parece, plata no es. Abre las cortinas y verás lo que es."
+	palabras["CAMPANA"]="Soy una vieja sin dientes, a veces dorada y a veces plateada y siempre llamo a la gente."
+	palabras["GUITARRA"]="A veces puede parecer alegre o triste, dependiendo de quién me toque o de quien me rasgue las cuerdas, mientras emito un buen sonido que se oye por todo el lugar."
+	palabras["COMETA"]="En el cielo brinco y vuelo. Me encanta subir, flotar y lucir mi pelo."
+	palabras["CAMINO"]="Todos me pisan a mi, pero yo no piso a nadie; todos preguntan por mí, yo no pregunto por nadie."
+	palabras["CLAVEL"]="Por su aroma y su color para adornarse se clavan las mujeres en su pelo, los hombres en la solapa."
+	palabras["FOSFORO"]="Tiene muchos hermanitos, en una sola casa viven, si rascan su cabeza al instante muere."
+	palabras["ALBAÑIL"]="Ni torcida ni inclinada tiene que estar la pared, para eso tiene plomada y se ayuda del nivel."
+	palabras["CENCERRO"]="Va al campo y no come, va al río y no bebe y con sonar se mantiene."
+	palabras["CUADRADO"]="Tiene mas de 3 lados y menos de 5 lados. Tiene todos sus lados iguales."
+	palabras["SEGUNDOS"]="Corren más que los minutos pero... nunca llegan los primeros!!."
+	palabras["SILENCIO"]="Si lo nombras, lo rompe."
+	palabras["MUSICA"]="Es el arte de combinar los sonidos."
+	palabras["ANILLO"]="Redondo, redondo, barril sin fondo."
+	palabras["GUANTES"]="Tenemos diez dedos, sin huesos ni carne."
+	palabras["DISTROFIA"]="Debilidad progresiva de los músculos que se debe a un problema de los musculos en sí."
+	palabras["PANTORRILLA"]="La parte de la pierna que quedaentre la rodila y el tobillo."
+	
 	
 
 
