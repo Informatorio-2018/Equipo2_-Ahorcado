@@ -1,13 +1,17 @@
-
 import random
+from PyQt5 import QtWidgets
+from ahorcado_qt import Ahorcado_Qt
 
-# ESTO ESTABA EN MASTER
-#
-#
-# ESTO ESTABA EN MASTER
-
-class Ahorcado():
+class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	palabra_aleatoria = ""
+
+	def __init__(self):
+		super().__init__()
+		self.setupUi(self)
+		self.show()
+
+		#Conecta los botones
+		self.letra_a.clicked.connect(self.numero_presionado)
 
 	def lista_palabra(self):
 		import modulo_pickle
@@ -30,24 +34,17 @@ class Ahorcado():
 
 	def devuelve_incognita(self):
 		incognita = []
-		for i in palabra_aleatoria:
+		for i in self.palabra_aleatoria:
 			incognita.append("_")
-		incognita[0] = palabra_aleatoria[0]
-		incognita[len(incognita)-1] = palabra_aleatoria[len(palabra_aleatoria)-1]
+		incognita[0] = self.palabra_aleatoria[0]
+		incognita[len(incognita)-1] = self.palabra_aleatoria[len(self.palabra_aleatoria)-1]
 		return incognita 
 
 
+	def numero_presionado(self):
+		global incognita
+		boton = self.sender().text()
+		a = str(self.devuelve_incognita())
+		self.etiqueta_incognita.setText(incognita)
+	
 
-
-ahorcado1=Ahorcado()
-
-print(ahorcado1.lista_palabra())
-print()
-print()
-
-print(ahorcado1.buscar_palabra_aleatoria())
-print(ahorcado1.devuelve_pista())
-print(ahorcado1.devuelve_incognita())
-
-
-input('')
