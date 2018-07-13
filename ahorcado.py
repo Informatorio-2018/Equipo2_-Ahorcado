@@ -1,6 +1,10 @@
 
 import random
 
+# ESTO ESTABA EN MASTER
+#
+#
+# ESTO ESTABA EN MASTER
 
 class Ahorcado():
 	palabra_aleatoria = ""
