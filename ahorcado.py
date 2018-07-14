@@ -9,9 +9,14 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		super().__init__()
 		self.setupUi(self)
 		self.show()
+		self.lista_palabra()
+		self.buscar_palabra_aleatoria()
+		self.devuelve_pista()
+		self.devuelve_incognita()
+
 
 		#Conecta los botones
-		self.letra_a.clicked.connect(self.numero_presionado)
+		
 
 	def lista_palabra(self):
 		import modulo_pickle
@@ -20,31 +25,30 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		return lista
 
 	def buscar_palabra_aleatoria(self):
-		global palabra_aleatoria
 		lista_de_palabras=self.lista_palabra()
-		palabra_aleatoria=random.choice(lista_de_palabras)
-		return palabra_aleatoria
+		self.palabra_aleatoria=random.choice(lista_de_palabras)
+		
+		
 
 	def devuelve_pista(self):
-		# global palabra_aleatoria
 		import modulo_pickle
 		diccionario = modulo_pickle.pasa_dic()
-		pista = diccionario.get(palabra_aleatoria)
-		return pista
+		pista = diccionario.get(self.palabra_aleatoria)
+		# self.etiqueta_pista.setText(pista)
+		
 
 	def devuelve_incognita(self):
 		incognita = []
-		for i in self.palabra_aleatoria:
-			incognita.append("_")
-		incognita[0] = self.palabra_aleatoria[0]
-		incognita[len(incognita)-1] = self.palabra_aleatoria[len(self.palabra_aleatoria)-1]
-		return incognita 
+		for i in range(len(self.palabra_aleatoria)):
 
+			if(i == 0):
+				incognita.append(self.palabra_aleatoria[0])
+			elif(i == len(self.palabra_aleatoria)-1):
+				incognita.append(self.palabra_aleatoria[len(self.palabra_aleatoria)-1])
+			else:
+				incognita.append("_")
 
-	def numero_presionado(self):
-		global incognita
-		boton = self.sender().text()
-		a = str(self.devuelve_incognita())
-		self.etiqueta_incognita.setText(incognita)
+		self.etiqueta_incognita.setText(' '.join(incognita))
+	
 	
 
