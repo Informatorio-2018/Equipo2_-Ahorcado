@@ -1,11 +1,12 @@
 import random
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from ahorcado_qt import Ahorcado_Qt 
 
 class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	palabra_aleatoria = ""
 	incognita = []
 	letra = ""
+	intentos = 6
 
 	def __init__(self):
 		super().__init__()
@@ -89,12 +90,15 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		self.letra = boton.text()
 		#boton.text() devuelve la letra presionada
 		#si esta en la palabra retorna true, si no, else
-		if self.letra in self.palabra_aleatoria:
-			# boton.setEnabled(False)
-			# boton.setStyleSheet("background-color:#72F92E")
+		pos = len(self.palabra_aleatoria)-1
+		if self.letra in self.palabra_aleatoria[1:pos]:
 			self.reemplaza_guion()
+			self.boton_verde()
 			return True
 		else:
+			self.intentos -= 1
+			self.boton_rojo()
+			self.imagen_ahorcado()
 			return False
 		
 
@@ -106,4 +110,25 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 
 	
-	
+	#Desactiva el boton y cambia a color verde si la letra esta en la incognita
+	def boton_verde(self):
+		boton = self.sender()
+		boton.setEnabled(False)
+		boton.setStyleSheet("background-color:#72F92E")
+
+	#Suma 30 puntos si la letra esta en la incognita
+
+
+	#Desactiva el boton y cambia a color rojo si la letra no esta en la incognita
+	def boton_rojo(self):
+		boton = self.sender()
+		boton.setEnabled(False)
+		boton.setStyleSheet("background-color:red")
+		
+	#Agrega una parte del cuerpo al muñeco si la letra no esta en la incognita
+	def imagen_ahorcado(self):
+		ahorcado_imagen = ["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg","img/6.jpg","img/7.jpg"]
+		ahorcado_imagen.sort(reverse=True)
+		for i in range(self.intentos+1):
+			self.etiqueta_imagen.setPixmap(QtGui.QPixmap(ahorcado_imagen[i]))
+		
