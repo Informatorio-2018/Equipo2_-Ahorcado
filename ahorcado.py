@@ -89,27 +89,22 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		#boton.text() devuelve la letra presionada
 		#si esta en la palabra retorna true, si no, else
 		if boton.text() in self.palabra_aleatoria:
-			#-----------------------------------------------------------------------------
-			##ESTO ES LO MISMO DE REEMPLAZA_GUION()
-			##PUSE ACA PARA QUE VEAS QUE SI FUNCIONAN LOS BOTONES
-			#if self.letra_presionada():
-				#for i in range(len(self.palabra_aleatoria)):
-					#if(self.boton.text() == self.palabra_aleatoria[i]):
-						#self.incognita[i] = self.boton.text()
-						#self.etiqueta_incognita.setText(' '.join(self.incognita))
-			#-----------------------------------------------------------------------------
+			for i in range(len(self.palabra_aleatoria)):
+				if(boton.text() == self.palabra_aleatoria[i]):
+					self.incognita[i] = boton.text()
+					self.etiqueta_incognita.setText(' '.join(self.incognita))
 			return True
 		else:
 			return False
 		
 
-	#No se como hacer para que se ejecute este metodo
-	def reemplaza_guion(self):
-		boton = self.sender()
-		if self.letra_presionada():
-			for i in range(len(self.palabra_aleatoria)):
-				if(self.boton.text() == self.palabra_aleatoria[i]):
-					self.incognita[i] = self.boton.text()
-					self.etiqueta_incognita.setText(' '.join(self.incognita))
+	# #No se como hacer para que se ejecute este metodo
+	# def reemplaza_guion(self):
+	# 	boton = self.sender()
+	# 	if self.letra_presionada():
+	# 		for i in range(len(self.palabra_aleatoria)):
+	# 			if(self.boton.text() == self.palabra_aleatoria[i]):
+	# 				self.incognita[i] = self.boton.text()
+	# 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 
 	
