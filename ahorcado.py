@@ -65,7 +65,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		import modulo_pickle
 		diccionario = modulo_pickle.pasa_dic()
 		pista = diccionario.get(self.palabra_aleatoria)
-		# self.etiqueta_pista.setText(pista)
+		self.etiqueta_pista.setText(pista)
 		
 
 	def devuelve_incognita(self):
@@ -90,6 +90,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		#boton.text() devuelve la letra presionada
 		#si esta en la palabra retorna true, si no, else
 		if self.letra in self.palabra_aleatoria:
+			# boton.setEnabled(False)
+			# boton.setStyleSheet("background-color:#72F92E")
 			self.reemplaza_guion()
 			return True
 		else:
