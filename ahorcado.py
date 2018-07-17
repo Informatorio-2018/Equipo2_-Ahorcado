@@ -1,6 +1,6 @@
 import random
 from PyQt5 import QtWidgets
-from ahorcado_qt import Ahorcado_Qt
+from ahorcado_qt import Ahorcado_Qt 
 
 class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	palabra_aleatoria = ""

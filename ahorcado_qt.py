@@ -4,11 +4,11 @@
 #
 # Created by: PyQt5 UI code generator 5.11.2
 #
-# WARNING! All changes made in this file will be lost! 
+# WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ahorcado_Qt(object):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -441,15 +441,15 @@ class Ahorcado_Qt(object):
         self.etiqueta_imagen.setText("")
         self.etiqueta_imagen.setPixmap(QtGui.QPixmap("img/1.jpg"))
         self.etiqueta_imagen.setObjectName("etiqueta_imagen")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(360, 70, 301, 161))
+        self.etiqueta_pista = QtWidgets.QLabel(self.centralwidget)
+        self.etiqueta_pista.setGeometry(QtCore.QRect(360, 70, 301, 161))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.label.setFont(font)
-        self.label.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.label.setLineWidth(1)
-        self.label.setText("")
-        self.label.setObjectName("label")
+        self.etiqueta_pista.setFont(font)
+        self.etiqueta_pista.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.etiqueta_pista.setLineWidth(1)
+        self.etiqueta_pista.setText("")
+        self.etiqueta_pista.setObjectName("etiqueta_pista")
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(650, 0, 113, 46))
         self.widget.setObjectName("widget")
@@ -513,7 +513,7 @@ class Ahorcado_Qt(object):
         self.etiqueta_incognita.raise_()
         self.boton_pista.raise_()
         self.etiqueta_imagen.raise_()
-        self.label.raise_()
+        self.etiqueta_pista.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -557,6 +557,3 @@ class Ahorcado_Qt(object):
         self.etiqueta_vidas.setText(_translate("MainWindow", "❤❤❤"))
         self.label_2.setText(_translate("MainWindow", "Puntuación:"))
         self.etiqueta_puntuacion.setText(_translate("MainWindow", "0"))
-
-
-
