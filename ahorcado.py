@@ -10,7 +10,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	letra = ""
 	intentos = 6
 	lista_boton= []
-	x= []
+	señal_pista = []
 	
 
 	def __init__(self):
@@ -69,6 +69,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		self.imagen_ahorcado()
 		self.actualizar_botones()
 		self.act_boton_pista()
+		self.actualiza_arriesga()
 		
 		
 
@@ -88,8 +89,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def devuelve_pista(self):
 		import modulo_pickle
 		boton = self.sender()
-		# self.boton_pista.append(boton)
-		self.x.append(boton)
+		#guardo en la lista señal_pista la señal del boton 
+		self.señal_pista.append(boton)
 		diccionario = modulo_pickle.pasa_dic()
 		self.pista = diccionario.get(self.palabra_aleatoria)
 		self.etiqueta_pista.setText(self.pista)
@@ -120,6 +121,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		#recupera la señal que envia el boton al presionar
 		boton = self.sender()
 		self.letra = boton.text()
+		#guardo en una lista las señales de los botones presionados 
 		self.lista_boton.append(boton)
 		#boton.text() devuelve la letra presionada
 		#si esta en la palabra retorna true, si no, else
@@ -146,6 +148,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 				self.puntuacion += 30
 				self.actualiza_puntuacion()
+		
+		#aca busco si encuentra guion en la palabra si no encuentra ganaste 
 		control=self.etiqueta_incognita.text()
 		resul=control.find("_")
 		if resul == -1:
@@ -183,6 +187,12 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		self.etiqueta_puntuacion.setText(str(self.puntuacion))
 
 
+	def actualiza_arriesga(self):
+		#pongo en blanco la entrada de texto de arriesgar
+		self.entrada_arriesgar.setText(' '.join(""))
+
+
+
 	#Boton arriesgar
 	def arriesgar(self):
 		#comparo si es igual a la incognita
@@ -199,11 +209,13 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			self.puntuacion += 100
 
 			self.actualiza_puntuacion()
+			QtWidgets.QMessageBox.information(self, "Felicidades", """Adivinaste la palabra""",QtWidgets.QMessageBox.Ok)
 			self.inicia_partida()
 		else:
 			self.vidas -= 1
 			self.actualiza_vidas()
 			self.perdiste_vida()
+			self.inicia_partida()
 
 
 	def actualiza_vidas(self):
@@ -238,8 +250,9 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			if respuesta == QtWidgets.QMessageBox.Ok:
 				self.inicia_partida()
 
-
+    #con esta funcion vuelvo a activar los botones y dejajrlo en el color que estaban
 	def actualizar_botones(self):
+		#recorro la lista de los botones presionados y a cada boton lo activo y le dejo el stilo de antes
 		for i in range(len(self.lista_boton)):
 			
 			boton=self.lista_boton[i]
@@ -247,9 +260,12 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			boton.setStyleSheet("QPushButton{background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #bedaed, stop: 1 #86adcc);border: 1px solid gray;}")
 	
 	def act_boton_pista(self):
-		for i in range(len(self.x)):
-			boton=self.x[i]
+		#vuelvo activar boton pista despues de que termine la partida para eso guarde la señal arriba en señal_pista
+		for i in range(len(self.señal_pista)):
+			boton=self.señal_pista[i]
 			boton.setEnabled(True)
+
+		#pongo en blanco el qlabel que muestra la pista
 		self.etiqueta_pista.setText("")
 		
 
