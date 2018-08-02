@@ -142,10 +142,14 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 	#Reemplaza en la incognita el guion por la letra presionada
 	def reemplaza_guion(self):
+		#guardo el tamaño total de la subcadena 
 		posx = len(self.palabra_aleatoria)-1
+		#guardo la subcadena en x
 		x=self.palabra_aleatoria[1:posx]
+		#recorro subcadena 
 		for i in range(len(x)):
 			if(self.letra == x[i]):
+				# a incognita le sumo una posicion para que arranque a reemplazar desde la posicion 1 y no en la 0 sino me cambia la primer letra de la incognita
 				self.incognita[i+1] = self.letra
 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 				self.puntuacion += 30
