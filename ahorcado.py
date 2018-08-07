@@ -10,7 +10,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	letra = ""
 	intentos = 6
 	lista_boton= []
-	señal_pista = []
 	
 
 	def __init__(self):
@@ -89,8 +88,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def devuelve_pista(self):
 		import modulo_pickle
 		boton = self.sender()
-		#guardo en la lista señal_pista la señal del boton 
-		self.señal_pista.append(boton)
 		diccionario = modulo_pickle.pasa_dic()
 		self.pista = diccionario.get(self.palabra_aleatoria)
 		self.etiqueta_pista.setText(self.pista)
@@ -266,10 +263,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			boton.setStyleSheet("QPushButton{background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #bedaed, stop: 1 #86adcc);border: 1px solid gray;}")
 	
 	def act_boton_pista(self):
-		#vuelvo activar boton pista despues de que termine la partida para eso guarde la señal arriba en señal_pista
-		for i in range(len(self.señal_pista)):
-			boton=self.señal_pista[i]
-			boton.setEnabled(True)
+		#vuelvo activar boton pista despues de que termine la partida
+		self.boton_pista.setEnabled(True)
 
 		#pongo en blanco el qlabel que muestra la pista
 		self.etiqueta_pista.setText("")
