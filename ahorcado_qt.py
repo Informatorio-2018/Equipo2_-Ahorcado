@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QIcon
 
 class Ahorcado_Qt(object):
     def setupUi(self, MainWindow):
@@ -14,6 +15,7 @@ class Ahorcado_Qt(object):
         MainWindow.resize(800, 600)
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
         MainWindow.setMaximumSize(QtCore.QSize(800, 600))
+        MainWindow.setWindowIcon(QIcon("img/icono.ico"))
         MainWindow.setStyleSheet("QLineEdit{\n"
 "    border: 1px solid gray;\n"
 "}")
@@ -641,7 +643,7 @@ class Ahorcado_Qt(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Ahorcado"))
         self.letra_a.setText(_translate("MainWindow", "A"))
         self.letra_b.setText(_translate("MainWindow", "B"))
         self.letra_d.setText(_translate("MainWindow", "D"))
@@ -689,6 +691,6 @@ class Ahorcado_Qt(object):
         self.label_2.setText(_translate("MainWindow", "Puntuación:"))
         self.label_4.setText(_translate("MainWindow", "Vidas:"))
         self.etiqueta_vidas.setText(_translate("MainWindow", "❤❤❤"))
-        self.etiqueta_puntuacion.setText(_translate("MainWindow", "00000"))
+        self.etiqueta_puntuacion.setText(_translate("MainWindow", "0"))
 
 
