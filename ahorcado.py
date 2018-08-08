@@ -1,6 +1,9 @@
 import sys
 import random
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtGui
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtGui import QPalette, QColor, QIcon, QPixmap, QMovie
+from PyQt5.QtCore import Qt
 from ahorcado_qt import Ahorcado_Qt
 
 
@@ -18,7 +21,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		self.show()
 		self.lista_palabra()
 		self.inicia_partida()
-		self.ganar_partida()
 		self.puntuacion = 0
 		self.pista = ""
 		self.vidas = 3
@@ -156,8 +158,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		control=self.etiqueta_incognita.text()
 		resul=control.find("_")
 		if resul == -1:
-			QtWidgets.QMessageBox.information(self, "Felicidades", """Adivinaste la palabra""",QtWidgets.QMessageBox.Ok)
-			self.inicia_partida()
+			self.ganaste_partida()
 
 
 	
@@ -166,9 +167,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		boton = self.sender()
 		boton.setEnabled(False)
 		boton.setStyleSheet("QPushButton{background-color: green; color: black;border: 1px solid gray;}")
-		
-
-	#Suma 30 puntos si la letra esta en la incognita
 
 
 	#Desactiva el boton y cambia a color rojo si la letra no esta en la incognita
@@ -212,8 +210,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			self.puntuacion += 100
 
 			self.actualiza_puntuacion()
-			QtWidgets.QMessageBox.information(self, "Felicidades", """Adivinaste la palabra""",QtWidgets.QMessageBox.Ok)
-			self.inicia_partida()
+			self.ganaste_partida()
 		else:
 			self.vidas -= 1
 			self.actualiza_vidas()
@@ -242,16 +239,10 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 	def perdiste_vida(self):
 		if self.vidas==0:
-			respuesta = QtWidgets.QMessageBox.information(self, "FIN DEL JUEGO", "Perdiste",QtWidgets.QMessageBox.Ok)
-			#aca va la pregunta si quiere seguir jugando sino sale 
-			sys.exit()
+			self.perdiste_juego()
 
 		else:
-			respuesta = QtWidgets.QMessageBox.information(self, "Perdiste una vida", "La palabra era: "+self.palabra_aleatoria+"\nTe quedan "+str(self.vidas)
-		 	+" vidas",
-			QtWidgets.QMessageBox.Ok)
-			if respuesta == QtWidgets.QMessageBox.Ok:
-				self.inicia_partida()
+			self.perdiste_partida()
 
     #con esta funcion vuelvo a activar los botones y dejajrlo en el color que estaban
 	def actualizar_botones(self):
@@ -270,10 +261,108 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		self.etiqueta_pista.setText("")
 		
 
-			
-	def ganar_partida(self):
-		pass
+	#Mensaje personalido - Ganar partida	
+	def ganaste_partida(self):
+		#Instanciar clase QMessageBox
+		mensaje = QMessageBox()
 
+		# #Agregar icono
+		mensaje.setWindowIcon(QIcon("img/icono.ico"))
+
+		#Titulo
+		mensaje.setWindowTitle("Ganaste la partida")
+
+		# mensaje.setIcon(QMessageBox.Information)
+		mensaje.setIconPixmap(QPixmap("img/sonrisa.png").scaled(100, 100, Qt.KeepAspectRatio))
+
+		mensaje.setText("<b>Adivinaste la palabra!</b>")
+
+		#Agregar boton
+		boton = mensaje.addButton("Continuar", QMessageBox.YesRole)
+		mensaje.setDefaultButton(boton)
+		
+		mensaje.exec_() 
+
+		if mensaje.clickedButton() == boton:
+			self.inicia_partida()
+			
+
+	#Mensaje personalido - Perder Partida	
+	def perdiste_partida(self):
+		#Instanciar clase QMessageBox
+		mensaje = QMessageBox()
+
+		# #Agregar icono
+		mensaje.setWindowIcon(QIcon("img/icono.ico"))
+
+		#Titulo
+		mensaje.setWindowTitle("Perdiste la partida")
+
+		# mensaje.setIcon(QMessageBox.Information)
+		mensaje.setIconPixmap(QPixmap("img/corazon.png").scaled(100, 100, Qt.KeepAspectRatio))
+		
+		mensaje.setText("La palabra era: "+"<b>"+str(self.palabra_aleatoria)+"</b><br>"+"Te quedan: "+str(self.vidas)+" vidas")
+
+		# Le damos color al fondo del cuadro de mensaje
+		paleta = QPalette()
+		colorPanel = QPalette.Background
+		paleta.setColor(colorPanel, QColor("green"))
+		mensaje.setPalette(paleta)
+
+		#Cambiamos el tamaño de la letra del cuadro de mensaje
+		fuente = self.font()
+		fuente.setPointSize(10)
+		mensaje.setFont(fuente)
+
+		#Agregar boton
+		boton = mensaje.addButton("Continuar", QMessageBox.YesRole)
+		mensaje.setDefaultButton(boton)
+		
+		mensaje.exec_() 
+
+		if mensaje.clickedButton() == boton:
+			self.inicia_partida()
+	
+
+	#Mensaje personalido - Perder Juego	
+	def perdiste_juego(self):
+		#Instanciar clase QMessageBox
+		mensaje = QMessageBox()
+
+		# #Agregar icono
+		mensaje.setWindowIcon(QIcon("img/icono.ico"))
+
+		#Titulo
+		mensaje.setWindowTitle("Perdiste el juego")
+
+		# mensaje.setIcon(QMessageBox.Information)
+		mensaje.setIconPixmap(QPixmap("img/dead.ico").scaled(100, 100, Qt.KeepAspectRatio))
+		
+		mensaje.setText("La palabra era: "+"<b>"+str(self.palabra_aleatoria)+"</b><br>"+"Te quedan: "+str(self.vidas)+" vidas")
+
+		# Le damos color al fondo del cuadro de mensaje
+		paleta = QPalette()
+		colorPanel = QPalette.Background
+		paleta.setColor(colorPanel, QColor("green"))
+		mensaje.setPalette(paleta)
+
+		#Cambiamos el tamaño de la letra del cuadro de mensaje
+		fuente = self.font()
+		fuente.setPointSize(10)
+		mensaje.setFont(fuente)
+
+		#Agregar boton
+		boton_si = mensaje.addButton("Jugar otra vez", QMessageBox.YesRole)
+		mensaje.setDefaultButton(boton_si)
+		boton_no = mensaje.addButton("Salir", QMessageBox.NoRole)
+		mensaje.setDefaultButton(boton_no)
+		
+		mensaje.exec_() 
+
+		if mensaje.clickedButton() == boton_si:
+			self.inicia_partida()
+		elif mensaje.clickedButton() == boton_no:
+			sys.exit()
 		
 
 
