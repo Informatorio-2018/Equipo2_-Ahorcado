@@ -13,6 +13,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	letra = ""
 	intentos = 6
 	lista_boton= []
+	puntuacion = 0
 	
 
 	def __init__(self):
@@ -153,6 +154,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 				self.puntuacion += 30
 				self.actualiza_puntuacion()
+				self.act_boton_pista()
 		
 		#aca busco si encuentra guion en la palabra si no encuentra ganaste 
 		control=self.etiqueta_incognita.text()
@@ -255,7 +257,15 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	
 	def act_boton_pista(self):
 		#vuelvo activar boton pista despues de que termine la partida
-		self.boton_pista.setEnabled(True)
+
+		
+		if(self.puntuacion >= 40):
+
+			self.boton_pista.setEnabled(True)
+
+		else:
+
+			self.boton_pista.setEnabled(False)
 
 		#pongo en blanco el qlabel que muestra la pista
 		self.etiqueta_pista.setText("")
