@@ -14,6 +14,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	intentos = 6
 	lista_boton= []
 	puntuacion = 0
+	palabras_usadas = []
 	
 
 	def __init__(self):
@@ -64,7 +65,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 
 	def inicia_partida(self):
-		self.buscar_palabra_aleatoria()
+		# self.buscar_palabra_aleatoria()
+		self.temp1()
 		self.incognita = []
 		self.devuelve_incognita()
 		self.intentos = 6
@@ -83,9 +85,34 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		return lista
 
 	def buscar_palabra_aleatoria(self):
+		
 		lista_de_palabras=self.lista_palabra()
 		self.palabra_aleatoria=random.choice(lista_de_palabras)
-		
+
+
+	def control_palabras(self):
+
+		if(self.palabra_aleatoria in self.palabras_usadas):
+			
+			return False
+		else:
+			return True
+
+
+	def temp1(self):
+
+		while True:
+			self.buscar_palabra_aleatoria()
+
+			if(self.control_palabras() == False):
+				continue
+			elif(self.control_palabras() == True):
+
+				self.palabras_usadas.append(self.palabra_aleatoria)
+				
+				print(self.palabras_usadas)
+
+				break
 		
 
 	def devuelve_pista(self):
