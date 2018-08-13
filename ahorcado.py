@@ -21,11 +21,11 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		super().__init__()
 		self.setupUi(self)
 		self.show()
-		self.lista_palabra()
-		self.inicia_partida()
-		self.puntuacion = 0
-		self.pista = ""
-		self.vidas = 3
+		
+		self.juego_nuevo()
+		# self.puntuacion = 0
+		
+		# self.vidas = 3
 
 
 		#Conecta los botones(letras)
@@ -75,6 +75,17 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		self.act_boton_pista()
 		self.actualiza_arriesga()
 		
+		
+	def juego_nuevo(self):
+		self.pista = ""
+		self.vidas=3
+		self.puntuacion=0
+		self.palabras_usadas=[]
+		self.lista_palabra()
+		self.actualiza_vidas()
+
+		self.actualiza_puntuacion()
+		self.inicia_partida()
 		
 
 
@@ -277,6 +288,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			self.vidas -= 1
 			self.actualiza_vidas()
 			self.perdiste_vida()
+
 			
 			# self.inicia_partida()
 
@@ -318,15 +330,9 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	
 	def act_boton_pista(self):
 		#vuelvo activar boton pista despues de que termine la partida
+		self.boton_pista.setEnabled(True)
 
 		
-		if(self.puntuacion >= 40):
-
-			self.boton_pista.setEnabled(True)
-
-		else:
-
-			self.boton_pista.setEnabled(False)
 
 		#pongo en blanco el qlabel que muestra la pista
 		self.etiqueta_pista.setText("")
@@ -336,6 +342,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def ganaste_partida(self):
 		#Instanciar clase QMessageBox
 		mensaje = QMessageBox()
+
 
 		# #Agregar icono
 		mensaje.setWindowIcon(QIcon("img/icono.ico"))
@@ -362,6 +369,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def perdiste_partida(self):
 		#Instanciar clase QMessageBox
 		mensaje = QMessageBox()
+		self.etiqueta_imagen.setPixmap(QtGui.QPixmap("img/7.jpg"))
 
 		# #Agregar icono
 		mensaje.setWindowIcon(QIcon("img/icono.ico"))
@@ -399,6 +407,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def perdiste_juego(self):
 		#Instanciar clase QMessageBox
 		mensaje = QMessageBox()
+		self.etiqueta_imagen.setPixmap(QtGui.QPixmap("img/7.jpg"))
 
 		# #Agregar icono
 		mensaje.setWindowIcon(QIcon("img/icono.ico"))
@@ -431,7 +440,9 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		mensaje.exec_() 
 
 		if mensaje.clickedButton() == boton_si:
-			self.inicia_partida()
+			self.juego_nuevo()
+			
+
 		elif mensaje.clickedButton() == boton_no:
 			sys.exit()
 		
