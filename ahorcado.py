@@ -136,14 +136,17 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 		# Quitar despues
 		print('pal_usadas se ejecutó')
+		lista_de_palabras=self.lista_palabra()
 
 		flag = 1
 
 		self.buscar_palabra_aleatoria()
 
 		while(flag == 1):
+			if(len(lista_de_palabras)==len(self.palabras_usadas)):
+				sys.exit()
 
-			if(self.control_palabras() == False):
+			elif(self.control_palabras() == False):
 				
 				# Quitar despues
 				print('Dio FALSE, buscando de nuevo')
