@@ -13,6 +13,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	letra = ""
 	intentos = 6
 	lista_boton= []
+	puntuacion = 0
+	palabras_usadas = []
 	
 
 	def __init__(self):
@@ -63,7 +65,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 
 	def inicia_partida(self):
-		self.buscar_palabra_aleatoria()
+		# self.buscar_palabra_aleatoria()
+		self.pal_usadas()
 		self.incognita = []
 		self.devuelve_incognita()
 		self.intentos = 6
@@ -82,9 +85,67 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		return lista
 
 	def buscar_palabra_aleatoria(self):
+		
 		lista_de_palabras=self.lista_palabra()
 		self.palabra_aleatoria=random.choice(lista_de_palabras)
-		
+
+
+	def control_palabras(self):
+
+		if(self.palabra_aleatoria in self.palabras_usadas):
+			
+			# Quitar despues
+			print('Esta ya la palabra')
+			
+			return False
+		else:
+			
+			# Quitar despues
+			print('No está la palabra')
+			
+			return True
+
+
+	# def temp1(self):
+
+	# 	while True:
+	# 		self.buscar_palabra_aleatoria()
+
+	# 		if(self.control_palabras() == False):
+	# 			continue
+	# 		elif(self.control_palabras() == True):
+
+	# 			self.palabras_usadas.append(self.palabra_aleatoria)
+				
+	# 			print(self.palabras_usadas)
+
+	# 			break
+
+	def pal_usadas(self):
+
+		# Quitar despues
+		print('pal_usadas se ejecutó')
+
+		flag = 1
+
+		self.buscar_palabra_aleatoria()
+
+		while(flag == 1):
+
+			if(self.control_palabras() == False):
+				
+				# Quitar despues
+				print('Dio FALSE, buscando de nuevo')
+				
+				self.buscar_palabra_aleatoria()
+			else:
+
+				self.palabras_usadas.append(self.palabra_aleatoria)
+				
+				# Quitar despues
+				print(self.palabras_usadas)
+
+				flag = 0
 		
 
 	def devuelve_pista(self):
@@ -153,6 +214,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 				self.puntuacion += 30
 				self.actualiza_puntuacion()
+				self.act_boton_pista()
 		
 		#aca busco si encuentra guion en la palabra si no encuentra ganaste 
 		control=self.etiqueta_incognita.text()
@@ -215,7 +277,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			self.vidas -= 1
 			self.actualiza_vidas()
 			self.perdiste_vida()
-			self.inicia_partida()
+			
+			# self.inicia_partida()
 
 
 	def actualiza_vidas(self):
@@ -255,7 +318,15 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	
 	def act_boton_pista(self):
 		#vuelvo activar boton pista despues de que termine la partida
-		self.boton_pista.setEnabled(True)
+
+		
+		if(self.puntuacion >= 40):
+
+			self.boton_pista.setEnabled(True)
+
+		else:
+
+			self.boton_pista.setEnabled(False)
 
 		#pongo en blanco el qlabel que muestra la pista
 		self.etiqueta_pista.setText("")
