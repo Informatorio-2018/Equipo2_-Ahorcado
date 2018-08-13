@@ -66,7 +66,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 	def inicia_partida(self):
 		# self.buscar_palabra_aleatoria()
-		self.temp1()
+		self.pal_usadas()
 		self.incognita = []
 		self.devuelve_incognita()
 		self.intentos = 6
@@ -94,25 +94,58 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 
 		if(self.palabra_aleatoria in self.palabras_usadas):
 			
+			# Quitar despues
+			print('Esta ya la palabra')
+			
 			return False
 		else:
+			
+			# Quitar despues
+			print('No está la palabra')
+			
 			return True
 
 
-	def temp1(self):
+	# def temp1(self):
 
-		while True:
-			self.buscar_palabra_aleatoria()
+	# 	while True:
+	# 		self.buscar_palabra_aleatoria()
+
+	# 		if(self.control_palabras() == False):
+	# 			continue
+	# 		elif(self.control_palabras() == True):
+
+	# 			self.palabras_usadas.append(self.palabra_aleatoria)
+				
+	# 			print(self.palabras_usadas)
+
+	# 			break
+
+	def pal_usadas(self):
+
+		# Quitar despues
+		print('pal_usadas se ejecutó')
+
+		flag = 1
+
+		self.buscar_palabra_aleatoria()
+
+		while(flag == 1):
 
 			if(self.control_palabras() == False):
-				continue
-			elif(self.control_palabras() == True):
+				
+				# Quitar despues
+				print('Dio FALSE, buscando de nuevo')
+				
+				self.buscar_palabra_aleatoria()
+			else:
 
 				self.palabras_usadas.append(self.palabra_aleatoria)
 				
+				# Quitar despues
 				print(self.palabras_usadas)
 
-				break
+				flag = 0
 		
 
 	def devuelve_pista(self):
@@ -244,7 +277,8 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 			self.vidas -= 1
 			self.actualiza_vidas()
 			self.perdiste_vida()
-			self.inicia_partida()
+			
+			# self.inicia_partida()
 
 
 	def actualiza_vidas(self):
