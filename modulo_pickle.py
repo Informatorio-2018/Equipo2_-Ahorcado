@@ -53,7 +53,7 @@ def pasa_dic():
 	palabras["CARACOL"]="Un solo portero, un solo inquilino, tu casa redonda la llevas contigo."
 	palabras["OVEJA"]="Puñadito de algodón que brinca sin ton ni son."
 	palabras["LAGARTIJA"]="Porque tengo sangre fría aparezco en primavera en piedras encaramada siempre al sol que más calienta."
-	palabras["HIPOPÓTAMO"]="Tengo hipo al decir mi nombre."
+	palabras["HIPOPOTAMO"]="Tengo hipo al decir mi nombre."
 	palabras["SASTRE"]="Con destreza y sin desatre hace las mangas al traje."
 	palabras["CARTERO"]="Por las calles viene y va, reparte noticias, ya está por acá."
 	palabras["PINTOR"]="Brocha y pincel va siempre con él."
