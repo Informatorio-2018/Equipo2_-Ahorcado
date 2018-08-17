@@ -1,7 +1,7 @@
 import sys
 import random
 from PyQt5 import QtWidgets, QtGui, QtGui
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QLabel
 from PyQt5.QtGui import QPalette, QColor, QIcon, QPixmap, QMovie
 from PyQt5.QtCore import Qt
 from ahorcado_qt import Ahorcado_Qt
@@ -21,11 +21,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		super().__init__()
 		self.setupUi(self)
 		self.show()
-		
 		self.juego_nuevo()
-		# self.puntuacion = 0
-		
-		# self.vidas = 3
 
 
 		#Conecta los botones(letras)
@@ -96,7 +92,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		return lista
 
 	def buscar_palabra_aleatoria(self):
-		
 		lista_de_palabras=self.lista_palabra()
 		self.palabra_aleatoria=random.choice(lista_de_palabras)
 
@@ -104,64 +99,34 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def control_palabras(self):
 
 		if(self.palabra_aleatoria in self.palabras_usadas):
-			
-			# Quitar despues
-			print('Esta ya la palabra')
-			
+			#La palabra ya esta en la lista de usadas
 			return False
 		else:
-			
-			# Quitar despues
-			print('No está la palabra')
-			
+			#La palabra no esta
 			return True
 
 
-	# def temp1(self):
-
-	# 	while True:
-	# 		self.buscar_palabra_aleatoria()
-
-	# 		if(self.control_palabras() == False):
-	# 			continue
-	# 		elif(self.control_palabras() == True):
-
-	# 			self.palabras_usadas.append(self.palabra_aleatoria)
-				
-	# 			print(self.palabras_usadas)
-
-	# 			break
 
 	def pal_usadas(self):
-
-		# Quitar despues
-		print('pal_usadas se ejecutó')
 		lista_de_palabras=self.lista_palabra()
-
 		flag = 1
-
 		self.buscar_palabra_aleatoria()
 
 		while(flag == 1):
 			if(len(lista_de_palabras)==len(self.palabras_usadas)):
+				#Aca va el metodo ganaste juego
 				sys.exit()
 
 			elif(self.control_palabras() == False):
-				
-				# Quitar despues
-				print('Dio FALSE, buscando de nuevo')
-				
+				#Buscar de nuevo palabra aleatoria
 				self.buscar_palabra_aleatoria()
 			else:
-
+				#Agrego a lista de palabras usadas la "palabra_aleatoria" y uso como incognita
 				self.palabras_usadas.append(self.palabra_aleatoria)
-				
-				# Quitar despues
-				print(self.palabras_usadas)
-
 				flag = 0
 		
 
+	
 	def devuelve_pista(self):
 		import modulo_pickle
 		boton = self.sender()
@@ -186,10 +151,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
  
 		self.etiqueta_incognita.setText(' '.join(self.incognita))
 		
-
-
-	
-	
+		
 
 	def letra_presionada(self):
 		#recupera la señal que envia el boton al presionar
@@ -202,9 +164,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		pos = len(self.palabra_aleatoria)-1
 		if self.letra in self.palabra_aleatoria[1:pos]:
 			self.boton_verde()
-			self.reemplaza_guion()
-			
-			
+			self.reemplaza_guion()	
 			return True
 		else:
 			self.intentos -= 1
@@ -228,7 +188,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 				self.etiqueta_incognita.setText(' '.join(self.incognita))
 				self.puntuacion += 30
 				self.actualiza_puntuacion()
-				self.act_boton_pista()
 		
 		#aca busco si encuentra guion en la palabra si no encuentra ganaste 
 		control=self.etiqueta_incognita.text()
@@ -322,7 +281,7 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		else:
 			self.perdiste_partida()
 
-    #con esta funcion vuelvo a activar los botones y dejajrlo en el color que estaban
+    #con esta funcion vuelvo a activar los botones y dejarlo en el color que estaban
 	def actualizar_botones(self):
 		#recorro la lista de los botones presionados y a cada boton lo activo y le dejo el stilo de antes
 		for i in range(len(self.lista_boton)):
@@ -334,8 +293,6 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 	def act_boton_pista(self):
 		#vuelvo activar boton pista despues de que termine la partida
 		self.boton_pista.setEnabled(True)
-
-		
 
 		#pongo en blanco el qlabel que muestra la pista
 		self.etiqueta_pista.setText("")
@@ -353,8 +310,9 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		#Titulo
 		mensaje.setWindowTitle("Ganaste la partida")
 
-		# mensaje.setIcon(QMessageBox.Information)
-		mensaje.setIconPixmap(QPixmap("img/sonrisa.png").scaled(100, 100, Qt.KeepAspectRatio))
+		#mensaje.setIcon(QMessageBox.Information)
+		# crea un label modificado a partir de setIcon
+		mensaje.setIconPixmap(QPixmap('img/sonrisa.png').scaled(100, 100, Qt.KeepAspectRatio))
 
 		mensaje.setText("<b>Adivinaste la palabra!</b>")
 
@@ -380,8 +338,9 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		#Titulo
 		mensaje.setWindowTitle("Perdiste la partida")
 
-		# mensaje.setIcon(QMessageBox.Information)
-		mensaje.setIconPixmap(QPixmap("img/corazon.png").scaled(100, 100, Qt.KeepAspectRatio))
+        #mensaje.setIcon(QMessageBox.Information)
+		# crea un label modificado a partir de setIcon
+		mensaje.setIconPixmap(QPixmap('img/corazon.png').scaled(100, 100, Qt.KeepAspectRatio))
 		
 		mensaje.setText("La palabra era: "+"<b>"+str(self.palabra_aleatoria)+"</b><br>"+"Te quedan: "+str(self.vidas)+" vidas")
 
@@ -419,7 +378,12 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		mensaje.setWindowTitle("Perdiste el juego")
 
 		# mensaje.setIcon(QMessageBox.Information)
-		mensaje.setIconPixmap(QPixmap("img/dead.ico").scaled(100, 100, Qt.KeepAspectRatio))
+		mensaje.setIconPixmap(QPixmap('img/petter.gif').scaled(30, 30, Qt.KeepAspectRatio))
+		icon_label = mensaje.findChild(QLabel, "qt_msgboxex_icon_label")
+		movie = QMovie('img/petter.gif')
+		setattr(mensaje, 'icon_label', movie)
+		icon_label.setMovie(movie)
+		movie.start()
 		
 		mensaje.setText("La palabra era: "+"<b>"+str(self.palabra_aleatoria)+"</b><br>"+"Te quedan: "+str(self.vidas)+" vidas")
 
@@ -438,14 +402,12 @@ class Ahorcado(QtWidgets.QMainWindow,Ahorcado_Qt):
 		boton_si = mensaje.addButton("Jugar otra vez", QMessageBox.YesRole)
 		mensaje.setDefaultButton(boton_si)
 		boton_no = mensaje.addButton("Salir", QMessageBox.NoRole)
-		mensaje.setDefaultButton(boton_no)
 		
 		mensaje.exec_() 
 
 		if mensaje.clickedButton() == boton_si:
 			self.juego_nuevo()
 			
-
 		elif mensaje.clickedButton() == boton_no:
 			sys.exit()
 		
